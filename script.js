@@ -13,19 +13,23 @@ function validateInput() {
 
    else if (/[^A-Z]/ig.test(pilotName)) {
       event.preventDefault();
-      alert("Please enter valid Pilot Name");
+      alert(pilotName + " is not a valid Pilot Name.\nPlease enter only letters for Pilot Name.");
+      id('pilotName').value = "";
    }
    else if (/[^A-Z]/ig.test(copilotName)) {
       event.preventDefault();
-      alert("Please enter valid Co-Pilot Name");
+      alert(copilotName + " is not a valid Co-Pilot Name.\nPlease enter only letters for Co-Pilot Name");
+      id('copilotName').value = "";
    }
    else if (/[^0-9]/ig.test(fuelLevel)) {
       event.preventDefault();
-      alert("Please enter a number for Fuel Level");
+      alert(fuelLevel + " is not a valid Fuel Level.\nPlease enter a number for Fuel Level");
+      id('fuelLevel').value = "";
    }
    else if (/[^0-9]/ig.test(cargoMass)) {
       event.preventDefault();
-      alert("Please enter a number for Cargo Mass");
+      alert(cargoMass + " is not a valid Cargo Mass.\nPlease enter a number for Cargo Mass");
+      id('cargoMass').value = "";
    }
    else {
       event.preventDefault();
