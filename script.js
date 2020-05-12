@@ -18,7 +18,6 @@ function validateInput() {
    else if (/[^A-Z]/ig.test(copilotName)) {
       event.preventDefault();
       alert("Please enter valid Co-Pilot Name");
-      copilotName.focus = true;
    }
    else if (/[^0-9]/ig.test(fuelLevel)) {
       event.preventDefault();
