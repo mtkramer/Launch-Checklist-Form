@@ -1,3 +1,85 @@
+window.addEventListener('DOMContentLoaded', () => {
+
+   fetch("https://handlers.education.launchcode.org/static/planets.json").then((response) => {
+      response.json().then((json) => {
+
+         id('missionTarget').innerHTML = `
+            <label for="selectTarget" id="selectTargetLabel">Please select a destination
+               <select id="selectTarget" name="selectTarget">
+                  <option value="none">None</option>
+               </select>
+            </label>
+            <div id="destination"
+            style="display:flex; flex-direction: column; justify-content: center; align-items: center; margin: 8 0;"></div>
+         `;
+
+         id('selectTarget').innerHTML += json.map((planet, index) => {
+            let option = planet.name;
+            return `<option value="${index}">${option}</option>`;
+         });
+
+         id('selectTarget').addEventListener('change', () => {
+
+            let index = id('selectTarget').value;
+            if (index >= 0) {
+               id('destination').innerHTML = `
+                  <h2>Mission Destination</h2>
+                     <ol>
+                        <li>Name: ${json[index].name}</li>
+                        <li>Diameter: ${json[index].diameter}</li>
+                        <li>Star: ${json[index].star}</li>
+                        <li>Distance from Earth: ${json[index].distance}</li>
+                        <li>Number of Moons: ${json[index].moons}</li>
+                     </ol>
+                  <img src="${json[index].image}" alt="picture of destination planet"></img>
+               `;
+            }
+            else {
+               id('destination').innerHTML = "";
+            }
+         });
+
+      });
+
+   });
+
+   id('formSubmit').addEventListener('click', () => {
+
+      let fuelLevel;
+      let cargoMass;
+      let launchIsReady = false;
+      let fuelIsReady = false;
+      let cargoIsReady = false;
+
+      if (validateInput()) {
+         id('pilotStatus').innerText = `${id('pilotName').value} Ready`;
+         id('copilotStatus').innerText = `${id('copilotName').value} Ready`;
+         fuelLevel = Number(id('fuelLevel').value);
+         cargoMass = Number(id('cargoMass').value);
+      }
+
+      if (fuelLevel > 10000) {
+         id('fuelStatus').innerText = "Fuel level high enough for launch";
+         id('fuelStatus').style.backgroundColor = '#ECF0F1';
+         fuelIsReady = true;
+      }
+
+      if (cargoMass > 0 && cargoMass < 10000) {
+         id('cargoStatus').innerText = "Cargo mass low enough for launch";
+         id('cargoStatus').style.backgroundColor = '#ECF0F1';
+         cargoIsReady = true;
+      }
+
+      if (fuelIsReady && cargoIsReady) {
+         launchIsReady = true;
+      }
+
+      updateLaunchStatus(launchIsReady);
+
+   });
+
+});
+
 function id(x) { return document.getElementById(x); }
 
 function validateInput() {
@@ -59,57 +141,3 @@ function updateLaunchStatus(ready) {
 
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-   id('formSubmit').addEventListener('click', () => {
-
-      let fuelLevel;
-      let cargoMass;
-      let launchIsReady = false;
-      let fuelIsReady = false;
-      let cargoIsReady = false;
-
-      if (validateInput()) {
-         id('pilotStatus').innerText = `${id('pilotName').value} Ready`;
-         id('copilotStatus').innerText = `${id('copilotName').value} Ready`;
-         fuelLevel = Number(id('fuelLevel').value);
-         cargoMass = Number(id('cargoMass').value);
-      }
-
-      if (fuelLevel > 10000) {
-         id('fuelStatus').innerText = "Fuel level high enough for launch";
-         id('fuelStatus').style.backgroundColor = '#ECF0F1';
-         fuelIsReady = true;
-      }
-
-      if (cargoMass > 0 && cargoMass < 10000) {
-         id('cargoStatus').innerText = "Cargo mass low enough for launch";
-         id('cargoStatus').style.backgroundColor = '#ECF0F1';
-         cargoIsReady = true;
-      }
-
-      if (fuelIsReady && cargoIsReady) {
-         launchIsReady = true;
-      }
-
-      updateLaunchStatus(launchIsReady);
-
-   });
-});
-
-/*
-If the user submits a cargo mass that is too large (more than 10,000 kilograms),
-change the list to visible with an updated cargo status stating that there is too much mass for the shuttle to take off.
-The text of launchStatus should also change to "Shuttle not ready for launch" and the color should change to red
-*/
-
-/* This block of code shows how to format the HTML once you fetch some planetary JSON!
-<h2>Mission Destination</h2>
-<ol>
-   <li>Name: ${}</li>
-   <li>Diameter: ${}</li>
-   <li>Star: ${}</li>
-   <li>Distance from Earth: ${}</li>
-   <li>Number of Moons: ${}</li>
-</ol>
-<img src="${}">
-*/
