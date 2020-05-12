@@ -53,7 +53,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (validateInput()) {
          id('pilotStatus').innerText = `${id('pilotName').value} Ready`;
+         id('pilotStatus').style.backgroundColor = '#ECF0F1';
          id('copilotStatus').innerText = `${id('copilotName').value} Ready`;
+         id('copilotStatus').style.backgroundColor = '#ECF0F1';
          fuelLevel = Number(id('fuelLevel').value);
          cargoMass = Number(id('cargoMass').value);
       }
@@ -63,11 +65,19 @@ window.addEventListener('DOMContentLoaded', () => {
          id('fuelStatus').style.backgroundColor = '#ECF0F1';
          fuelIsReady = true;
       }
+      else {
+         id('fuelStatus').innerText = "Not enough fuel for launch";
+         id('fuelStatus').style.backgroundColor = 'red';
+      }
 
       if (cargoMass > 0 && cargoMass < 10000) {
          id('cargoStatus').innerText = "Cargo mass low enough for launch";
          id('cargoStatus').style.backgroundColor = '#ECF0F1';
          cargoIsReady = true;
+      }
+      else {
+         id('cargoStatus').innerText = "Too much cargo mass for lift off";
+         id('cargoStatus').style.backgroundColor = 'red';
       }
 
       if (fuelIsReady && cargoIsReady) {
@@ -88,6 +98,10 @@ function validateInput() {
    let copilotName = id('copilotName').value;
    let fuelLevel = id('fuelLevel').value;
    let cargoMass = id('cargoMass').value;
+   id('pilotStatus').innerText = "Pilot not ready";
+   id('pilotStatus').style.backgroundColor = "red";
+   id('copilotStatus').innerText = "Co-Pilot not ready";
+   id('copilotStatus').style.backgroundColor = "red";
 
    if (!pilotName || !copilotName || !fuelLevel || !cargoMass) {
       alert("Please fill out all fields before submitting form.");
@@ -115,10 +129,6 @@ function validateInput() {
    }
    else {
       event.preventDefault();
-      id('fuelStatus').innerText = "Not enough fuel for journey";
-      id('fuelStatus').style.backgroundColor = 'red';
-      id('cargoStatus').innerText = "Too much cargo mass for lift off";
-      id('cargoStatus').style.backgroundColor = 'red';
       return true;
    }
 
