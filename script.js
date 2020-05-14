@@ -106,7 +106,6 @@ function validateInput() {
    if (!pilotName || !copilotName || !fuelLevel || !cargoMass) {
       alert("Please fill out all fields before submitting form.");
    }
-
    else if (/[^A-Z]/ig.test(pilotName)) {
       event.preventDefault();
       alert(pilotName + " is not a valid Pilot Name.\nPlease enter only letters for Pilot Name.");
@@ -138,6 +137,7 @@ function validateInput() {
 }
 
 function updateLaunchStatus(ready) {
+
    if (ready) {
       id('launchStatus').innerText = "Shuttle ready for launch";
       id('launchStatus').style.backgroundColor = 'green';
