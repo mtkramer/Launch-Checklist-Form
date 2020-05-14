@@ -53,16 +53,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (validateInput()) {
          id('pilotStatus').innerText = `${id('pilotName').value} Ready`;
-         id('pilotStatus').style.backgroundColor = '#ECF0F1';
+         id('pilotStatus').style.backgroundColor = 'green';
          id('copilotStatus').innerText = `${id('copilotName').value} Ready`;
-         id('copilotStatus').style.backgroundColor = '#ECF0F1';
+         id('copilotStatus').style.backgroundColor = 'green';
          fuelLevel = Number(id('fuelLevel').value);
          cargoMass = Number(id('cargoMass').value);
       }
 
       if (fuelLevel > 10000) {
          id('fuelStatus').innerText = "Fuel level high enough for launch";
-         id('fuelStatus').style.backgroundColor = '#ECF0F1';
+         id('fuelStatus').style.backgroundColor = 'green';
          fuelIsReady = true;
       }
       else {
@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (cargoMass > 0 && cargoMass < 10000) {
          id('cargoStatus').innerText = "Cargo mass low enough for launch";
-         id('cargoStatus').style.backgroundColor = '#ECF0F1';
+         id('cargoStatus').style.backgroundColor = 'green';
          cargoIsReady = true;
       }
       else {
